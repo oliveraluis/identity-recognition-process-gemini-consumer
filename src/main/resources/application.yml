@@ -1,0 +1,24 @@
+spring.application.name: identity-recognition-consumer
+
+spring.cloud.stream:
+  function:
+    - identityConsumer
+  bindings:
+    identityConsumer-in-0:
+      destination: ${TOPIC_REGISTER_IDENTITY:register-identity}
+      group: ${TOPIC_REGISTER_IDENTITY:register-identity}-cg-01
+      contentType: application/json
+      consumer:
+        useNativeEncoding: false
+  kafka:
+    binder:
+      brokers: ${KAFKA_BROKER}
+      autoCreateTopics: true
+      configuration:
+        allow.auto.create.topics: true
+        auto.offset.reset: earliest
+        sasl.mechanism: PLAIN
+        sasl.jaas.config: ${KAFKA_JAAS_CONFIG}
+  instanceCount: 1
+  instanceIndex: 0
+  bindingRetryInterval: 10
