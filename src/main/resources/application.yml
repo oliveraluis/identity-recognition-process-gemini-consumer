@@ -1,4 +1,12 @@
-spring.application.name: identity-recognition-consumer
+spring:
+  application:
+    name: ${SPRING_APP_NAME:identity-recognition-consumer}
+  data:
+    mongodb:
+      uri: ${MONGO_URI}
+
+server:
+  port: 9090
 
 spring.cloud.stream:
   function:
